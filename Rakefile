@@ -2,7 +2,7 @@ require 'rake/clean'
 
 task :default => :test
 
-desc 'Test'
+desc 'Run tests'
 task :test do
   sh 'phpunit tests/*Test.php'
 end
