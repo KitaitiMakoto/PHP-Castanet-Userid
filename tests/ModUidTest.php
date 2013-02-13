@@ -82,4 +82,35 @@ class Castanet_ModUid_Test extends PHPUnit_Framework_TestCase
         $this->assertEquals($name, $this->modUid->getConfig('name'));
         $this->assertEquals($service, $this->modUid->getConfig('service'));
     }
+
+    public function testCreateSeeds()
+    {
+        $this->assertTrue(false);
+    }
+
+    public function testUidToLog()
+    {
+        $seeds = array('0100007F', '5DB41B51', 'C4074954', '02040303');
+
+        $this->assertEquals(implode($seeds),
+                            $this->modUid->uidToLog(array(
+                                                    hexdec($seeds[0]),
+                                                    hexdec($seeds[1]),
+                                                    hexdec($seeds[2]),
+                                                    hexdec($seeds[3])
+                                                          )));
+    }
+
+    public function testUidToCookie()
+    {
+        $seeds = array('0100007F', '5DB41B51', 'C4074954', '02040303');
+        $cookieValue = 'fwAAAVEbtF1USQfEAwMEAg==';
+        $this->assertEquals($cookieValue,
+                            $this->modUid->uidToCookie(array(
+                                                             hexdec($seeds[0]),
+                                                             hexdec($seeds[1]),
+                                                             hexdec($seeds[2]),
+                                                             hexdec($seeds[3])
+                                                             )));
+    }
 }
