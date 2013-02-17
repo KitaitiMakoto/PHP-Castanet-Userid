@@ -118,6 +118,14 @@ class Castanet_ModUid_Test extends PHPUnit_Framework_TestCase
         $this->assertEquals('02030303', substr($log, 24, 8));
     }
 
+    public function testToCookie()
+    {
+        $cookieValue = 'fwAAAVEbtF1USQfEAwMEAg==';
+        $uid = Castanet_ModUid::createFromCookie($cookieValue);
+
+        $this->assertEquals($cookieValue, $uid->toCookie());
+    }
+
     public function testSequencer()
     {
         Castanet_ModUid::refreshSequencer();

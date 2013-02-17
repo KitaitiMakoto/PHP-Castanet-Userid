@@ -183,6 +183,15 @@ class Castanet_ModUid
                        $this->htonl($this->sequencer));
     }
 
+    public function toCookie()
+    {
+        $buf = '';
+        foreach (array($this->getConfig('service'), $this->getTimestamp(), $this->getStartValue(), $this->sequencer) as $seed) {
+            $buf .= pack('N*', $seed);
+        }
+        return base64_encode($buf);
+    }
+
     public function uidToLog(array $seeds)
     {
         return sprintf('%08X%08X%08X%08X',
