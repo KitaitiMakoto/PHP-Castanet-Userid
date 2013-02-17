@@ -41,6 +41,10 @@ Usage
     $uid = new \Castanet_Userid;
     $uid->start();
 
+You need to call `\Castanet_Userid::start()` as early as possible because
+it uses `setcookie()` function internally and `setcookie()` occurs error
+if you have output any string already.
+
 ### Apache log
 Add custome log format to `httpd.conf` like this:
 
