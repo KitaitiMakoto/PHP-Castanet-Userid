@@ -101,6 +101,34 @@ class Castanet_ModUid_Test extends PHPUnit_Framework_TestCase
                                                           )));
     }
 
+    public function testTolog()
+    {
+        $timestamp = time();
+        $pid = getmypid();
+        Castanet_ModUid::refreshSequencer();
+        $uid = new Castanet_ModUid;
+        $uid->setConfigs(array(
+                                        'service' => ip2long('127.0.0.1'),
+                                        'timestamp' => $timestamp,
+                                        'startValue' => $pid,
+                                        ));
+        $log = $uid->toLog();
+
+        $this->assertEquals('0100007F', substr($log, 0, 8));
+        $this->assertEquals('02030303', substr($log, 24, 8));
+    }
+
+    public function testSequencer()
+    {
+        Castanet_ModUid::refreshSequencer();
+        $uid = new Castanet_ModUid;
+
+        $this->assertEquals('02030303', substr($uid->toLog(), 24, 8));
+
+        $uid2 = new Castanet_ModUid;
+        $this->assertEquals('02040303', substr($uid2->toLog(), 24, 8));
+    }
+
     public function testUidToCookie()
     {
         $seeds = array('0100007F', '5DB41B51', 'C4074954', '02040303');
@@ -112,5 +140,11 @@ class Castanet_ModUid_Test extends PHPUnit_Framework_TestCase
                                                              hexdec($seeds[2]),
                                                              hexdec($seeds[3])
                                                              )));
+    }
+
+    public function testHtonl()
+    {
+        $long = ip2long('127.0.0.1');
+        $this->assertEquals(hexdec('0100007F'), $this->modUid->htonl($long));
     }
 }

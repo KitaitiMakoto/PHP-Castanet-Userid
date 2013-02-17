@@ -17,8 +17,8 @@ class Castanet_ModUid
     const SEQUENCER_V1 = 1;
     const SEQUENCER_V2 = 0x03030302;
 
-
-    protected static $configNames = array('name', 'domain', 'p3p', 'path', 'expires', 'service');
+    protected static $configNames = array('name', 'domain', 'p3p', 'path', 'expires', 'service', 'timestamp', 'startValue');
+    private static $SEQUENCER = self::SEQUENCER_V2;
 
     private $enabled = false;
     private $name    = 'uid';
@@ -27,10 +27,22 @@ class Castanet_ModUid
     private $path    = '/';
     private $expires = 31449600;// 52 weeks
     private $service;
+    private $timestamp;
+    private $startValue;
+    private $sequencer;
 
-    public function __construct(array $options = null)
+    public static function refreshSequencer()
     {
-        
+        self::$SEQUENCER = self::SEQUENCER_V2;
+    }
+
+    public function __construct()
+    {
+        $this->sequencer = self::$SEQUENCER;
+        self::$SEQUENCER += 0x100;
+        if (self::$SEQUENCER < 0x03030302) {
+            self::$SEQUENCER = 0x03030302;
+        }
     }
 
     public function start(array $cookie)
@@ -131,8 +143,30 @@ class Castanet_ModUid
 
     public function getTimestamp()
     {
-        return isset($_SERVER['REQUEST_TIME']) ? $_SERVER['REQUEST_TIME']
-                                               : time();
+        if (! $this->timestamp) {
+            $this->timestamp = $_SERVER['REQUEST_TIME']
+                             ? $_SERVER['REQUEST_TIME']
+                             : time();
+        }
+        return $this->timestamp;
+    }
+
+    public function getStartValue()
+    {
+        if (! $this->startValue) {
+            list($usec, $sec) = explode(' ', microtime());
+            $this->startValue = (((int)$usec * 1000 * 1000 / 20) << 16 | getmypid());
+        }
+        return $this->startValue;
+    }
+
+    public function toLog()
+    {
+        return sprintf('%08X%08X%08X%08X',
+                       $this->htonl($this->getConfig('service')),
+                       $this->htonl($this->getTimestamp()),
+                       $this->htonl($this->getStartValue()),
+                       $this->htonl($this->sequencer));
     }
 
     public function uidToLog(array $seeds)
@@ -161,6 +195,16 @@ class Castanet_ModUid
                      (((int)$usec * 1000 * 1000 / 20) << 16 | getmypid()),
                      self::SEQUENCER_V2
                      );
+    }
+
+    public function htonl($integer)
+    {
+        $hex = sprintf('%08X', $integer);
+        if (strlen($hex) <= 2) {
+            return $integer;
+        }
+        $unpacked = unpack('H*', strrev(pack('H*', $hex)));
+        return hexdec($unpacked[1]);
     }
 
     /**
