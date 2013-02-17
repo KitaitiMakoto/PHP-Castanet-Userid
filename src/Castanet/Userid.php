@@ -166,7 +166,7 @@ class Castanet_Userid
     {
         if (! $this->service) {
             $this->service = isset($_SERVER['SERVER_ADDR'])
-                           ? $_SERVER['SERVER_ADDR']
+                           ? ip2long($_SERVER['SERVER_ADDR'])
                            : ip2long('1');
         }
         return $this->service;
