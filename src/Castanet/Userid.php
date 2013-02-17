@@ -60,6 +60,9 @@ class Castanet_Userid
 
     public function start(array $cookie=array())
     {
+        if (empty($cookie)) {
+            $cookie = $_COOKIE;
+        }
         if (isset($cookie[$this->name])) {
             $props = self::parseCookie($cookie[$this->name]);
             $this->service    = $props['service'];
