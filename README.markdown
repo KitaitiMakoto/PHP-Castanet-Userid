@@ -38,7 +38,7 @@ Usage
 ### PHP
 
     require 'vendor/autoload.php';
-    $uid = \Castanet_Userid;
+    $uid = new \Castanet_Userid;
     $uid->start();
 
 ### Apache log
