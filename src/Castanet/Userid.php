@@ -159,6 +159,16 @@ class Castanet_Userid
         return $this;
     }
 
+    public function getService()
+    {
+        if (! $this->service) {
+            $this->service = isset($_SERVER['SERVER_ADDR'])
+                           ? $_SERVER['SERVER_ADDR']
+                           : ip2long('1');
+        }
+        return $this->service;
+    }
+
     public function getTimestamp()
     {
         if (! $this->timestamp) {
@@ -181,7 +191,7 @@ class Castanet_Userid
     public function toLog()
     {
         return sprintf('%08X%08X%08X%08X',
-                       $this->htonl($this->getConfig('service')),
+                       $this->htonl($this->getService()),
                        $this->htonl($this->getTimestamp()),
                        $this->htonl($this->getStartValue()),
                        $this->htonl($this->sequencer));
@@ -190,7 +200,7 @@ class Castanet_Userid
     public function toCookie()
     {
         $buf = '';
-        foreach (array($this->getConfig('service'), $this->getTimestamp(), $this->getStartValue(), $this->sequencer) as $seed) {
+        foreach (array($this->getService(), $this->getTimestamp(), $this->getStartValue(), $this->sequencer) as $seed) {
             $buf .= pack('N*', $seed);
         }
         return base64_encode($buf);
