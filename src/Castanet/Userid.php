@@ -1,16 +1,16 @@
 <?php
 
 /**
- * Emulates Apaches's mod_id or Nginx's ngx_http_userid_module module
+ * Emulates Apaches's mod_uid or Nginx's ngx_http_userid_module module
  *
  * Usage:
  * <pre>
- * $modUid = new Castanet_ModUid;
- * $modUid->enable();
- *        ->start();
+ * $uid = new Castanet_Userid;
+ * $uid->enable();
+ *     ->start();
  * </pre>
  */
-class Castanet_ModUid
+class Castanet_Userid
 {
     const NOTE_NAME_SET = 'uid_set';
     const NOTE_NAME_GOT = 'uid_got';
@@ -75,7 +75,7 @@ class Castanet_ModUid
     }
 
     /**
-     * @return Castanet_ModUid
+     * @return Castanet_Userid
      */
     public function setEnabled($enabled)
     {
@@ -92,7 +92,7 @@ class Castanet_ModUid
     }
 
     /**
-     * @return Castanet_ModUid
+     * @return Castanet_Userid
      */   
     public function enable()
     {
@@ -100,7 +100,7 @@ class Castanet_ModUid
     }
 
     /**
-     * @return Castanet_ModUid
+     * @return Castanet_Userid
      */
     public function disable()
     {
@@ -137,7 +137,7 @@ class Castanet_ModUid
      * $uid->setConfig('name', 'castanet');
      * </pre>
      * 
-     * @return Castanet_ModUid
+     * @return Castanet_Userid
      */
     public function setConfig($name, $value)
     {
@@ -149,7 +149,7 @@ class Castanet_ModUid
 
     /**
      * @param array $configs
-     * @return Castanet_ModUid
+     * @return Castanet_Userid
      */
     public function setConfigs(array $configs)
     {

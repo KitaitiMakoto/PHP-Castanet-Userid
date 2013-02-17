@@ -1,16 +1,16 @@
 <?php
-require 'src/Castanet/ModUid.php';
+require 'src/Castanet/Userid.php';
 
-class Castanet_ModUid_Test extends PHPUnit_Framework_TestCase
+class Castanet_Userid_Test extends PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
-        $this->uid = new Castanet_ModUid;
+        $this->uid = new Castanet_Userid;
     }
 
     public function testDisabledWhenConstructed()
     {
-        $uid = new Castanet_ModUid;
+        $uid = new Castanet_Userid;
         $this->assertFalse($uid->isEnabled());
         $this->assertTrue($uid->isDisabled());
     }
@@ -87,8 +87,8 @@ class Castanet_ModUid_Test extends PHPUnit_Framework_TestCase
     {
         $timestamp = time();
         $pid = getmypid();
-        Castanet_ModUid::refreshSequencer();
-        $uid = new Castanet_ModUid;
+        Castanet_Userid::refreshSequencer();
+        $uid = new Castanet_Userid;
         $uid->setConfigs(array(
                                         'service' => ip2long('127.0.0.1'),
                                         'timestamp' => $timestamp,
@@ -103,26 +103,26 @@ class Castanet_ModUid_Test extends PHPUnit_Framework_TestCase
     public function testToCookie()
     {
         $cookieValue = 'fwAAAVEbtF1USQfEAwMEAg==';
-        $uid = Castanet_ModUid::createFromCookie($cookieValue);
+        $uid = Castanet_Userid::createFromCookie($cookieValue);
 
         $this->assertEquals($cookieValue, $uid->toCookie());
     }
 
     public function testSequencer()
     {
-        Castanet_ModUid::refreshSequencer();
-        $uid = new Castanet_ModUid;
+        Castanet_Userid::refreshSequencer();
+        $uid = new Castanet_Userid;
 
         $this->assertEquals('02030303', substr($uid->toLog(), 24, 8));
 
-        $uid2 = new Castanet_ModUid;
+        $uid2 = new Castanet_Userid;
         $this->assertEquals('02040303', substr($uid2->toLog(), 24, 8));
     }
 
     public function testCreateFromCookie()
     {
-        Castanet_ModUid::refreshSequencer();
-        $uid = Castanet_ModUid::createFromCookie('fwAAAVEbtF1USQfEAwMEAg==');
+        Castanet_Userid::refreshSequencer();
+        $uid = Castanet_Userid::createFromCookie('fwAAAVEbtF1USQfEAwMEAg==');
 
         $this->assertEquals(ip2long('127.0.0.1'), $uid->getConfig('service'));
         $this->assertEquals(1360770141, $uid->getTimestamp());
