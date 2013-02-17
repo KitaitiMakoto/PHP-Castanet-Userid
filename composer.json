@@ -1,0 +1,25 @@
+{
+    "name": "castanet/userid",
+    "version": "0.0.1",
+    "description": "Emulate Nginx's HTTP Userid module",
+    "authors": [
+        {
+            "name": "KITAITI Makoto"
+        }
+    ],
+    "license": "MIT",
+    "repositories": [
+        {
+            "type": "git",
+            "url": "git://gitorious.org/php-castanet/php-castanet-userid.git"
+        }
+    ],
+    "autoload": {
+        "psr-0": {
+            "Castanet": "src/"
+        }
+    },
+    "require-dev": {
+        "phpunit/phpunit": "3.7.*"
+    }
+}

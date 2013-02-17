@@ -4,7 +4,7 @@ task :default => :test
 
 desc 'Run tests'
 task :test do
-  sh 'phpunit tests/*Test.php'
+  sh 'vendor/bin/phpunit tests/*Test.php'
 end
 
 desc 'Generate documentation'
