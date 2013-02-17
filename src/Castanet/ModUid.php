@@ -40,12 +40,11 @@ class Castanet_ModUid
     {
         $uid = new self;
 
-        $decoded = base64_decode($cookieValue);
-        $unpacked = unpack('N*', $decoded);
-        $uid->service    = $unpacked[1];
-        $uid->timestamp  = $unpacked[2];
-        $uid->startValue = $unpacked[3];
-        $uid->sequencer  = $unpacked[4];
+        $props = self::parseCookie($cookieValue);
+        $uid->service    = $props['service'];
+        $uid->timestamp  = $props['timestamp'];
+        $uid->startValue = $props['startValue'];
+        $uid->sequencer  = $props['sequencer'];
 
         return $uid;
     }
@@ -218,5 +217,17 @@ class Castanet_ModUid
     protected function setNote($name, $value)
     {
         return apache_note($name, $value);
+    }
+
+    protected static function parseCookie($cookieValue)
+    {
+        $decoded = base64_decode($cookieValue);
+        $unpacked = unpack('N*', $decoded);
+        return array(
+                     'service'    => $unpacked[1],
+                     'timestamp'  => $unpacked[2],
+                     'startValue' => $unpacked[3],
+                     'sequencer'  => $unpacked[4]
+                     );
     }
 }
