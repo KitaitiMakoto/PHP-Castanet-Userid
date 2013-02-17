@@ -11,9 +11,13 @@
     "repositories": [
         {
             "type": "git",
-            "url": "git://gitorious.org/php-castanet/php-castanet-userid.git"
+            "url": "git://github.com/KitaitiMakoto/PHP-Castanet-Userid.git"
         }
     ],
+    "suppoert": {
+        "source": "https://github.com/KitaitiMakoto/PHP-Castanet-Userid",
+        "issues": "https://github.com/KitaitiMakoto/PHP-Castanet-Userid/issues"
+    },
     "autoload": {
         "psr-0": {
             "Castanet": "src/"
