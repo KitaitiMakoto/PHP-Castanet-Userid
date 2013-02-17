@@ -83,24 +83,6 @@ class Castanet_ModUid_Test extends PHPUnit_Framework_TestCase
         $this->assertEquals($service, $this->modUid->getConfig('service'));
     }
 
-    public function testCreateSeeds()
-    {
-        $this->assertTrue(false);
-    }
-
-    public function testUidToLog()
-    {
-        $seeds = array('0100007F', '5DB41B51', 'C4074954', '02040303');
-
-        $this->assertEquals(implode($seeds),
-                            $this->modUid->uidToLog(array(
-                                                    hexdec($seeds[0]),
-                                                    hexdec($seeds[1]),
-                                                    hexdec($seeds[2]),
-                                                    hexdec($seeds[3])
-                                                          )));
-    }
-
     public function testTolog()
     {
         $timestamp = time();
@@ -145,19 +127,6 @@ class Castanet_ModUid_Test extends PHPUnit_Framework_TestCase
         $this->assertEquals(ip2long('127.0.0.1'), $uid->getConfig('service'));
         $this->assertEquals(1360770141, $uid->getTimestamp());
         $this->assertEquals('0100007F5DB41B51C407495402040303', $uid->toLog());
-    }
-
-    public function testUidToCookie()
-    {
-        $seeds = array('0100007F', '5DB41B51', 'C4074954', '02040303');
-        $cookieValue = 'fwAAAVEbtF1USQfEAwMEAg==';
-        $this->assertEquals($cookieValue,
-                            $this->modUid->uidToCookie(array(
-                                                             hexdec($seeds[0]),
-                                                             hexdec($seeds[1]),
-                                                             hexdec($seeds[2]),
-                                                             hexdec($seeds[3])
-                                                             )));
     }
 
     public function testHtonl()

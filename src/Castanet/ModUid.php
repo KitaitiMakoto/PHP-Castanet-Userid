@@ -201,25 +201,6 @@ class Castanet_ModUid
                        $seeds[3]);
     }
 
-    public function uidToCookie(array $seeds)
-    {
-        $uid = '';
-        foreach ($seeds as $seed) {
-            $uid .= pack('V*', $seed);
-        }
-        return base64_encode($uid);
-    }
-
-    public function createSeeds()
-    {
-        list($usec, $sec) = explode(' ', microtime());
-        return array($this->service,
-                     $this->getTimestamp(),
-                     (((int)$usec * 1000 * 1000 / 20) << 16 | getmypid()),
-                     self::SEQUENCER_V2
-                     );
-    }
-
     public function htonl($integer)
     {
         $hex = sprintf('%08X', $integer);
