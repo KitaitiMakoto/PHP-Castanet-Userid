@@ -5,82 +5,82 @@ class Castanet_ModUid_Test extends PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
-        $this->modUid = new Castanet_ModUid;
+        $this->uid = new Castanet_ModUid;
     }
 
     public function testDisabledWhenConstructed()
     {
-        $modUid = new Castanet_ModUid;
-        $this->assertFalse($modUid->isEnabled());
-        $this->assertTrue($modUid->isDisabled());
+        $uid = new Castanet_ModUid;
+        $this->assertFalse($uid->isEnabled());
+        $this->assertTrue($uid->isDisabled());
     }
 
     public function testSetEnabled()
     {
-        $this->modUid->setEnabled(true);
-        $this->assertTrue($this->modUid->getEnabled());
+        $this->uid->setEnabled(true);
+        $this->assertTrue($this->uid->getEnabled());
 
-        $this->modUid->setEnabled(false);
-        $this->assertFalse($this->modUid->getEnabled());
+        $this->uid->setEnabled(false);
+        $this->assertFalse($this->uid->getEnabled());
     }
 
     public function testEnable()
     {
-        $this->modUid->enable();
-        $this->assertTrue($this->modUid->getEnabled());
+        $this->uid->enable();
+        $this->assertTrue($this->uid->getEnabled());
     }
 
     public function testDisable()
     {
-        $this->modUid->disable();
-        $this->assertFalse($this->modUid->getEnabled());
+        $this->uid->disable();
+        $this->assertFalse($this->uid->getEnabled());
     }
 
     public function testIsEnabled()
     {
-        $this->assertFalse($this->modUid->isEnabled());
+        $this->assertFalse($this->uid->isEnabled());
 
-        $this->modUid->enable();
-        $this->assertTrue($this->modUid->isEnabled());
+        $this->uid->enable();
+        $this->assertTrue($this->uid->isEnabled());
 
-        $this->modUid->disable();
-        $this->assertFalse($this->modUid->isEnabled());
+        $this->uid->disable();
+        $this->assertFalse($this->uid->isEnabled());
     }
 
     public function testIsDisabled()
     {
-        $this->assertTrue($this->modUid->isDisabled());
+        $this->assertTrue($this->uid->isDisabled());
 
-        $this->modUid->enable();
-        $this->assertFalse($this->modUid->isDisabled());
+        $this->uid->enable();
+        $this->assertFalse($this->uid->isDisabled());
 
-        $this->modUid->disable();
-        $this->assertTrue($this->modUid->isDisabled());
+        $this->uid->disable();
+        $this->assertTrue($this->uid->isDisabled());
     }
 
     public function testGetConfig()
     {
-        $this->assertEquals('uid', $this->modUid->getConfig('name'));
-        $this->assertNull($this->modUid->getConfig('none'));
+        $this->assertEquals('uid', $this->uid->getConfig('name'));
+        $this->assertNull($this->uid->getConfig('none'));
     }
 
     public function testSetConfig()
     {
         $path = '/tracking';
-        $this->modUid->setConfig('path', $path);
-        $this->assertEquals($path, $this->modUid->getConfig('path'));
+        $this->uid->setConfig('path', $path);
+        $this->assertEquals($path, $this->uid->getConfig('path'));
     }
 
     public function testSetConfigs()
     {
         $name = 'tracking-user-id';
         $service = 1;
-        $this->modUid->setConfigs(array(
+        $this->uid->setConfigs(array(
                                         'name' => $name,
                                         'service' => $service
                                         ));
-        $this->assertEquals($name, $this->modUid->getConfig('name'));
-        $this->assertEquals($service, $this->modUid->getConfig('service'));
+        $this->assertEquals($name, $this->uid->getConfig('name'));
+        $this->assertEquals($service, $this->uid->getConfig('service'));
     }
 
     public function testTolog()
@@ -132,6 +132,6 @@ class Castanet_ModUid_Test extends PHPUnit_Framework_TestCase
     public function testHtonl()
     {
         $long = ip2long('127.0.0.1');
-        $this->assertEquals(hexdec('0100007F'), $this->modUid->htonl($long));
+        $this->assertEquals(hexdec('0100007F'), $this->uid->htonl($long));
     }
 }
