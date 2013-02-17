@@ -134,4 +134,18 @@ class Castanet_ModUid_Test extends PHPUnit_Framework_TestCase
         $long = ip2long('127.0.0.1');
         $this->assertEquals(hexdec('0100007F'), $this->uid->htonl($long));
     }
+
+    public function testStart()
+    {
+        $cookie = array('uid' => 'fwAAAVEbtF1USQfEAwMEAg==');
+        $this->uid->start($cookie);
+
+        $this->assertEquals('0100007F5DB41B51C407495402040303', $this->uid->toLog());
+
+        $cookie2 = array('castanet' => 'fwAAAVEbtF1USQfEAwMEAg==');
+        $this->uid->setConfig('name', 'castanet')
+                  ->start($cookie2);
+
+        $this->assertEquals('0100007F5DB41B51C407495402040303', $this->uid->toLog());
+    }
 }

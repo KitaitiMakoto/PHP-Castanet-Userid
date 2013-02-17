@@ -58,15 +58,20 @@ class Castanet_ModUid
         }
     }
 
-    public function start(array $cookie)
+    public function start(array $cookie=array())
     {
-        if ($cookieValue = $cookie[$this->name]) {
+        if (isset($cookie[$this->name])) {
+            $props = self::parseCookie($cookie[$this->name]);
+            $this->service    = $props['service'];
+            $this->timestamp  = $props['timestamp'];
+            $this->startValue = $props['startValue'];
+            $this->sequencer  = $props['sequencer'];
             $noteName = self::NOTE_NAME_GOT;
         } else {
             $noteName = self::NOTE_NAME_SET;
-            $cookieValue = $this->calcCookieValue();
+            setcookie($this->name, $this->toCookie(), $this->expires, $this->path, $this->domain);
         }
-        return $this->setNote($noteName, $cookieValue);
+        return $this->setNote($noteName, $this->toLog());
     }
 
     /**
@@ -216,7 +221,10 @@ class Castanet_ModUid
      */
     protected function setNote($name, $value)
     {
-        return apache_note($name, $value);
+        $note = "{$this->name}={$value}";
+        if (function_exists('apache_note')) {
+            return apache_note($name, $note);
+        }
     }
 
     protected static function parseCookie($cookieValue)
