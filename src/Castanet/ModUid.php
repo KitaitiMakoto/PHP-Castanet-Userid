@@ -36,6 +36,20 @@ class Castanet_ModUid
         self::$SEQUENCER = self::SEQUENCER_V2;
     }
 
+    public static function createFromCookie($cookieValue)
+    {
+        $uid = new self;
+
+        $decoded = base64_decode($cookieValue);
+        $unpacked = unpack('N*', $decoded);
+        $uid->service    = $unpacked[1];
+        $uid->timestamp  = $unpacked[2];
+        $uid->startValue = $unpacked[3];
+        $uid->sequencer  = $unpacked[4];
+
+        return $uid;
+    }
+
     public function __construct()
     {
         $this->sequencer = self::$SEQUENCER;
