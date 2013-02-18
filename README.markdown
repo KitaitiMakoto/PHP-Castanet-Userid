@@ -54,3 +54,55 @@ Add custome log format to `httpd.conf` like this:
 And set `combined_cookie` as current log format, then restart Apache.
 
 `uid_got` and `uid_set` variables are set by this library.
+
+Settings
+--------
+
+### Enabling
+`Castanet_Userid` does nothing even `start()` is called unless
+you call `enable()`(or `isEnabled(true)`).
+
+    $uid = new Castanet_Userid;
+    $uid->start(); // do nothing
+    $uid->enable()->start(); // do something
+
+### Name(key of cookie)
+`name` is used as key of cookie. By default, `uid` is used:
+
+    uid=fwAAAVEbtF1USQfEAwMEAg==
+
+You can modify it by `setConfig()` method:
+
+    $uid->setConfig('name', 'castanet');
+
+Then key of cookie is modified:
+
+    castanet=fwAAAVEbtF1USQfEAwMEAg==
+
+Be careful not to use the same key already used for other purpose.
+
+### Service
+`service` is an arbitrary integer and defaults to IP address of server PHP is processed(in practice, calculated by `ip2long()`).
+It appears as first eight characters on log. Let it, for instance, `127.0.0.1`, and logs noted by this library(as `uid_got` and `uid_set`) start with characters `0100007F`.
+
+Characters itself does mean nothing but it plays a role of identity. By seeing it, you may know the first server given user accessed. So you might have set the same value for multiple server load-balanced by one reverse proxy.
+
+You can set `service` like this:
+
+    $uid->setConfig('service', ip2long('127.0.0.1'));
+
+### Cookie attributes
+Cookie attributes(`domain`, `path` and `expires`) are able to be set by `setConfig()` method:
+
+    $uid->setConfig('domain', 'www.example.net')
+        ->setConfig('path', '/sandbox');
+
+### Setting at a time
+Using `setConfigs()` method, you can set properties above at a time:
+
+    $uid->setConfigs(array(
+        'name'    => 'castanet',
+        'service' => ip2long('127.0.0.1'),
+        'domain'  => 'www.example.net',
+        'path'    => '/sandbox'
+    ));
