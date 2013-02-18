@@ -12,6 +12,7 @@ end
 desc 'Generate documentation'
 task :doc do
   sh 'phpdoc --directory src --target doc'
+  sh 'kramdown README.markdown > doc/README.html'
 end
 
 desc 'Release package'
