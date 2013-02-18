@@ -85,7 +85,7 @@ Be careful not to use the same key already used for other purpose.
 `service` is an arbitrary integer and defaults to IP address of server PHP is processed(in practice, calculated by `ip2long()`).
 It appears as first eight characters on log. Let it, for instance, `127.0.0.1`, and logs noted by this library(as `uid_got` and `uid_set`) start with characters `0100007F`.
 
-Characters itself does mean nothing but it plays a role of identity. By seeing it, you may know the first server given user accessed. So you might have set the same value for multiple server load-balanced by one reverse proxy.
+Characters themselves mean nothing but they play a role of identity. By seeing it, you may know the first server given user accessed. So you might have set the same value for multiple server load-balanced by one reverse proxy.
 
 You can set `service` like this:
 
