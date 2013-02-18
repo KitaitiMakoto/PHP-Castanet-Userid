@@ -60,7 +60,7 @@ Settings
 
 ### Enabling
 `Castanet_Userid` does nothing even `start()` is called unless
-you call `enable()`(or `isEnabled(true)`).
+you call `enable()`(or `setEnabled(true)`).
 
     $uid = new Castanet_Userid;
     $uid->start(); // do nothing
