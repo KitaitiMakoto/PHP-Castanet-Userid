@@ -138,7 +138,7 @@ class Castanet_Userid_Test extends PHPUnit_Framework_TestCase
     public function testStart()
     {
         $cookie = array('uid' => 'fwAAAVEbtF1USQfEAwMEAg==');
-        $this->uid->start($cookie);
+        $this->uid->enable()->start($cookie);
 
         $this->assertEquals('0100007F5DB41B51C407495402040303', $this->uid->toLog());
 

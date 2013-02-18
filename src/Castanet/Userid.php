@@ -60,6 +60,9 @@ class Castanet_Userid
 
     public function start(array $cookie=array())
     {
+        if (! $this->enabled) {
+            return;
+        }
         if (empty($cookie)) {
             $cookie = $_COOKIE;
         }
