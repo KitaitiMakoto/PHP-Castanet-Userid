@@ -39,7 +39,8 @@ Usage
 
     require 'vendor/autoload.php';
     $uid = new \Castanet_Userid;
-    $uid->start();
+    $uid->enable()
+        ->start();
 
 You need to call `\Castanet_Userid::start()` as early as possible because
 it uses `setcookie()` function internally and `setcookie()` occurs error
