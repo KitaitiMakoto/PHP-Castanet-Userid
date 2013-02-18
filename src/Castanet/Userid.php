@@ -25,7 +25,7 @@ class Castanet_Userid
     private $domain  = null;
     private $p3p     = false;
     private $path    = '/';
-    private $expires = 31449600;// 52 weeks
+    private $expires = 1388534400;
     private $service;
     private $timestamp;
     private $startValue;
@@ -75,7 +75,7 @@ class Castanet_Userid
             $noteName = self::NOTE_NAME_GOT;
         } else {
             $noteName = self::NOTE_NAME_SET;
-            setcookie($this->name, $this->toCookie(), $this->getTimestamp() + $this->expires, $this->path, $this->domain);
+            setcookie($this->name, $this->toCookie(), $this->expires, $this->path, $this->domain);
         }
         return $this->setNote($noteName, $this->toLog());
     }
