@@ -1,5 +1,7 @@
 require 'rake/clean'
 
+SPEC_FILE = File.expand_path('../composer.json', __FILE__)
+
 task :default => :test
 
 desc 'Run tests'
@@ -10,4 +12,13 @@ end
 desc 'Generate documentation'
 task :doc do
   sh 'phpdoc --directory src --target doc'
+end
+
+desc 'Release package'
+task :release do
+  require 'json'
+  spec = JSON.load(open(SPEC_FILE))
+  version = spec['version']
+  sh "git tag #{version}"
+  sh "git push --tags && git push --tags github"
 end
