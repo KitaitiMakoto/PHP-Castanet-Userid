@@ -23,6 +23,7 @@
         "source": "https://github.com/KitaitiMakoto/PHP-Castanet-Userid",
         "issues": "https://github.com/KitaitiMakoto/PHP-Castanet-Userid/issues"
     },
+    "keywords": ["apache", "cookie", "logging"],
     "require-dev": {
         "phpunit/phpunit": "3.7.*"
     }
