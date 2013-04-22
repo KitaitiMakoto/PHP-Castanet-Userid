@@ -251,10 +251,10 @@ class Castanet_Userid
         $decoded = base64_decode($cookieValue);
         $unpacked = unpack('N*', $decoded);
         return array(
-                     'service'    => $unpacked[1],
-                     'timestamp'  => $unpacked[2],
-                     'startValue' => $unpacked[3],
-                     'sequencer'  => $unpacked[4]
-                     );
+            'service'    => $unpacked[1],
+            'timestamp'  => $unpacked[2],
+            'startValue' => $unpacked[3],
+            'sequencer'  => $unpacked[4]
+        );
     }
 }
