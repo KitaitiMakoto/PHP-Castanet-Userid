@@ -14,6 +14,7 @@ class Castanet_Userid
 {
     const NOTE_NAME_SET = 'uid_set';
     const NOTE_NAME_GOT = 'uid_got';
+    const NOTE_NAME_MERGED = 'uid';
     const SEQUENCER_V1 = 1;
     const SEQUENCER_V2 = 0x03030302;
 
@@ -77,7 +78,9 @@ class Castanet_Userid
             $noteName = self::NOTE_NAME_SET;
             setcookie($this->name, $this->toCookie(), $this->expires, $this->path, $this->domain);
         }
-        return $this->setNote($noteName, $this->toLog());
+        $logValue = $this->toLog();
+        $this->setNote(self::NOTE_NAME_MERGED, $logValue);
+        return $this->setNote($noteName, $logValue);
     }
 
     /**
