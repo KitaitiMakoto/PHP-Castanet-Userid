@@ -79,7 +79,7 @@ class Castanet_Userid
             setcookie($this->name, $this->toCookie(), $this->expires, $this->path, $this->domain);
         }
         $logValue = $this->toLog();
-        $this->setNote(self::NOTE_NAME_MERGED, $logValue);
+        $this->setNote(self::NOTE_NAME_MERGED, $logValue, false);
         return $this->setNote($noteName, $logValue);
     }
 
@@ -238,9 +238,9 @@ class Castanet_Userid
      * @return String|false previous note value.
      *                      false if failed to set note.
      */
-    protected function setNote($name, $value)
+    protected function setNote($name, $value, $noteName=true)
     {
-        $note = "{$this->name}={$value}";
+        $note = $noteName ? "{$name}={$value}" : $value;
         if (function_exists('apache_note')) {
             return apache_note($name, $note);
         }
