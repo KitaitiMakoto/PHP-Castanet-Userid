@@ -76,7 +76,7 @@ class Castanet_Userid
             $noteName = self::NOTE_NAME_GOT;
         } else {
             $noteName = self::NOTE_NAME_SET;
-            setcookie($this->name, $this->toCookie(), $this->expires, $this->path, $this->domain);
+            setrawcookie($this->name, $this->toCookie(), $this->expires, $this->path, $this->domain);
         }
         $logValue = $this->toLog();
         $this->setNote(self::NOTE_NAME_MERGED, $logValue, false);

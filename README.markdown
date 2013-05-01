@@ -43,7 +43,7 @@ Usage
         ->start();
 
 You need to call `\Castanet_Userid::start()` as early as possible because
-it uses `setcookie()` function internally and `setcookie()` occurs error
+it uses `setrawcookie()` function internally and `setrawcookie()` occurs error
 if you have output any string already.
 
 ### Apache log
