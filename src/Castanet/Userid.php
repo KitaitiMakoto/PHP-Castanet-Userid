@@ -6,7 +6,7 @@
  * Usage:
  * <pre>
  * $uid = new Castanet_Userid;
- * $uid->enable();
+ * $uid->enable()
  *     ->start();
  * </pre>
  */
