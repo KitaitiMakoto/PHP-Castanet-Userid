@@ -10,7 +10,7 @@
  * $uid->start();
  * </pre>
  */
-class Castanet_Userid
+class Castanet_Userid4
 {
     var $NOTE_NAME_SET = 'uid_set';
     var $NOTE_NAME_GOT = 'uid_got';
