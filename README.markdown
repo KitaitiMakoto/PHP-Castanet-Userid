@@ -111,3 +111,6 @@ Using `setConfigs()` method, you can set properties above at a time:
 Now Castanet Userid notes a note `uid` in addition to `uid_set` and `uid_got`.
 It is the value of either exists `uid_set` or `uid_set` and it doesn't have key name(`uid=`).
 
+PHP 4
+-----
+For PHP 4, Use Castanet_Userid4.

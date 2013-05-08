@@ -21,5 +21,5 @@ task :release do
   spec = JSON.load(open(SPEC_FILE))
   version = spec['version']
   sh "git tag #{version}"
-  sh "git push --tags && git push --tags github"
+  sh "git push --tags"
 end
