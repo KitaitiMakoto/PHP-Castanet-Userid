@@ -53,6 +53,7 @@ class Castanet_Userid4
     function Castanet_Userid()
     {
         $this->sequencer = $this->INITIAL_SEQUENCER;
+        $this->expires = time()+60*60*24*365;
         $this->INITIAL_SEQUENCER += 0x100;
         if ($this->INITIAL_SEQUENCER < 0x03030302) {
             $this->INITIAL_SEQUENCER = 0x03030302;
