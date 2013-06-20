@@ -26,7 +26,7 @@ class Castanet_Userid
     private $domain  = null;
     private $p3p     = false;
     private $path    = '/';
-    private $expires = 1388534400;
+    private $expires = null;
     private $service;
     private $timestamp;
     private $startValue;
@@ -53,6 +53,7 @@ class Castanet_Userid
     public function __construct()
     {
         $this->sequencer = self::$SEQUENCER;
+        $this->expires = time()+60*60*24*365;
         self::$SEQUENCER += 0x100;
         if (self::$SEQUENCER < 0x03030302) {
             self::$SEQUENCER = 0x03030302;
