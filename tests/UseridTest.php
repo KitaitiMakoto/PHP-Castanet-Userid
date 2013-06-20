@@ -148,4 +148,14 @@ class Castanet_Userid_Test extends PHPUnit_Framework_TestCase
 
         $this->assertEquals('0100007F5DB41B51C407495402040303', $this->uid->toLog());
     }
+
+    public function testConstructor()
+    {
+        $expires_time_before = time()+60*60*24*365;
+        $uid = new Castanet_Userid;
+        $expires_time_after = time()+60*60*24*365;
+        $this->assertNotNull($uid->getConfig("expires"));
+        $this->assertGreaterThanOrEqual($expires_time_before, $this->uid->getConfig("expires"));
+        $this->assertLessThanOrEqual($expires_time_after, $this->uid->getConfig("expires"));
+    }
 }

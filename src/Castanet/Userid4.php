@@ -26,7 +26,7 @@ class Castanet_Userid4
     var $domain  = null;
     var $p3p     = false;
     var $path    = '/';
-    var $expires = 1388534400;
+    var $expires = null;
     var $service;
     var $timestamp;
     var $startValue;
@@ -53,6 +53,7 @@ class Castanet_Userid4
     function Castanet_Userid()
     {
         $this->sequencer = $this->INITIAL_SEQUENCER;
+        $this->expires = time()+60*60*24*365;
         $this->INITIAL_SEQUENCER += 0x100;
         if ($this->INITIAL_SEQUENCER < 0x03030302) {
             $this->INITIAL_SEQUENCER = 0x03030302;
