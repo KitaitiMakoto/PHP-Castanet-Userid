@@ -114,3 +114,7 @@ It is the value of either exists `uid_set` or `uid_set` and it doesn't have key 
 PHP 4
 -----
 For PHP 4, Use Castanet_Userid4.
+
+Contributors
+------------
+* [Wackham](https://github.com/yuma3009)
