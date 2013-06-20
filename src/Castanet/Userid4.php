@@ -26,7 +26,7 @@ class Castanet_Userid4
     var $domain  = null;
     var $p3p     = false;
     var $path    = '/';
-    var $expires = 1388534400;
+    var $expires = null;
     var $service;
     var $timestamp;
     var $startValue;
