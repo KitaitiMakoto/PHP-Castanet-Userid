@@ -129,6 +129,16 @@ class Castanet_Userid_Test extends PHPUnit_Framework_TestCase
         $this->assertEquals('0100007F5DB41B51C407495402040303', $uid->toLog());
     }
 
+    public function testCreateFromCookieWithEmptyValue()
+    {
+        $cookieValue = '';
+        $uid = Castanet_Userid::createFromCookie($cookieValue);
+
+        $this->assertEquals('', $uid->getService());
+        $this->assertRegExp('/^\d{10}$/', (string)$uid->getTimestamp());
+        $this->assertRegExp('/^\d+$/', (string)$uid->getStartValue());
+    }
+
     public function testHtonl()
     {
         $long = ip2long('127.0.0.1');
