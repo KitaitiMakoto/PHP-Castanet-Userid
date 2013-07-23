@@ -1,6 +1,6 @@
 {
     "name": "castanet/userid",
-    "version": "0.0.7",
+    "version": "0.0.8",
     "description": "Emulate Nginx's HTTP Userid module",
     "authors": [
         {
